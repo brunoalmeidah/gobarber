@@ -1,6 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
-import { async } from 'rxjs/internal/scheduler/async';
 
 class User extends Model {
   static init(sequelize) {
@@ -21,6 +20,10 @@ class User extends Model {
     });
 
     return this;
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 
